@@ -27,8 +27,10 @@
 
                 // Parse the initial state of the robot
                 inputs = line.Split();
-                int x = int.Parse(inputs[0].Trim('(', ','));
-                int y = int.Parse(inputs[1].Trim(','));
+                int x;
+                int.TryParse(inputs[0].Trim('(', ','), out x);
+                int y;
+                int.TryParse(inputs[1].Trim(','), out y);
                 string orientation = inputs[2].Trim(')');
                 ValidateInitialPosition(x, y, orientation);
                 string commands = inputs[3];
@@ -52,12 +54,12 @@
         {
             if (x < 0 || y < 0)
             {
-                Console.WriteLine("X and Y must be greater than or equal to zero.");
+                Console.WriteLine("X and Y must be greater than or equal to zero. Please check the input or format");
                 Environment.Exit(0);
             }
             if(orientation != "N" && orientation != "S" && orientation != "W" && orientation != "E")
             {
-                Console.WriteLine("Robot orientation must be one of the following N, S, E, W.");
+                Console.WriteLine("Robot orientation must be one of the following N, S, E, W. Please check the input or format");
                 Environment.Exit(0);
             }
         }
