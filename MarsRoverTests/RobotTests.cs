@@ -67,5 +67,19 @@ namespace MarsRoverTests
             robot.RotateRight();
             robot.Orientation.Should().Be("E");
         }
+
+        [Test]
+        public void TestInitializeRobotWithNegativeXandY()
+        {
+            Action action = () => new Robot(-1, -4, "E");
+            action.Should().Throw<ArgumentException>().WithMessage("Invalid initial coordinates or orientation.");
+        }
+
+        [Test]
+        public void TestInitializeRobotWithEmptyOrientaton()
+        {
+            Action action = () => new Robot(-1, -4, "");
+            action.Should().Throw<ArgumentException>().WithMessage("Invalid initial coordinates or orientation.");
+        }
     }
 }

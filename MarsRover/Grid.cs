@@ -1,4 +1,6 @@
-﻿namespace MarsRover
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace MarsRover
 {
     public class Grid
     {

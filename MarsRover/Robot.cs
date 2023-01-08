@@ -11,6 +11,10 @@ namespace MarsRover
 
         public Robot(int x, int y, string orientation)
         {
+            if(x < 0 || y < 0 || orientation == String.Empty)
+            {
+                throw new ArgumentException("Invalid initial coordinates or orientation.");
+            }
             X = x;
             Y = y;
             Orientation = orientation;

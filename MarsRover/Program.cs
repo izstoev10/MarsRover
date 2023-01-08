@@ -7,8 +7,8 @@ namespace MarsRobots
         static void Main(string[] args)
         {
             Rover marsRover = new Rover();
-            Robot[] robots = marsRover.ReadInputAndUpdateRobotPositionsAndOrientation();
-            marsRover.ReturnRobotsFinalPositionsAndOrientation(robots);
+            Robot[] robots = marsRover.ProcessInput();
+            marsRover.ReturnRobots(robots);
         }
     }
 }
