@@ -13,11 +13,10 @@ namespace MarsRoverTests
         } 
         
         [Test]
-        public void TestGridSizeWithOneValueBeingZero()
+        public void TestGridSizeWithOneValueBeingPositive()
         {
-            Grid grid = new Grid(0, 1);
-            grid.M.Should().Be(0);
-            grid.N.Should().Be(1);
+            Action action = () => new Grid(-1, 5);
+            action.Should().Throw<ArgumentException>().WithMessage("Invalid grid size.");
         }
 
         [Test]
