@@ -32,7 +32,7 @@
                 int y;
                 int.TryParse(inputs[1].Trim(','), out y);
                 string orientation = inputs[2].Trim(')');
-                ValidateInitialPosition(x, y, orientation);
+                ValidateInitialPosition(x, y, orientation, m, n);
                 string commands = inputs[3];
                 Robot robot = new Robot(x, y, orientation);
                 robots = robots.Concat(new[] { robot }).ToArray();
@@ -50,8 +50,13 @@
             }
         }
 
-        private static void ValidateInitialPosition(int x, int y, string orientation)
+        private static void ValidateInitialPosition(int x, int y, string orientation, int m, int n)
         {
+            if(x > m || y > n)
+            {
+                Console.WriteLine("X and Y must be in the grid");
+                Environment.Exit(0);
+            }
             if (x < 0 || y < 0)
             {
                 Console.WriteLine("X and Y must be greater than or equal to zero. Please check the input or format");
