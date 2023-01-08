@@ -14,8 +14,14 @@
             var robots = new Robot[0];
 
             string line = String.Empty;
-            while ((line = Console.ReadLine()) != String.Empty)
+            while (true)
             {
+                line = Console.ReadLine();
+                if (string.IsNullOrEmpty(line))
+                {
+                    break;
+                }
+
                 // Parse the initial state of the robot
                 inputs = line.Split();
                 int x = int.Parse(inputs[0].Trim('(', ','));
@@ -45,6 +51,7 @@
             }
             return robots;
         }
+
 
         public void ReturnRobotsFinalPositionsAndOrientation(Robot[] robots)
         {
