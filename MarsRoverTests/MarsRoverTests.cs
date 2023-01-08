@@ -1,75 +1,41 @@
-using FluentAssertions;
+﻿using FluentAssertions;
 using MarsRover;
 using NUnit.Framework;
 
 namespace MarsRoverTests
 {
-    public class RobotTests
+    public class MarsRoverTests
     {
-        [Test]
-        public void TestMoveForward()
+        private readonly Rover _marsRover;
+        public MarsRoverTests()
         {
-            Grid grid = new Grid(5, 5);
-            Robot robot = new Robot(0, 0, "E");
-
-            // Test moving forward in different directions
-            robot.MoveForward(grid);
-            robot.X.Should().Be(1);
-            robot.Y.Should().Be(0);
-
-            robot.Orientation = "N";
-            robot.MoveForward(grid);
-            robot.X.Should().Be(1);
-            robot.Y.Should().Be(1);
-
-            robot.Orientation = "W";
-            robot.MoveForward(grid);
-            robot.X.Should().Be(0);
-            robot.Y.Should().Be(1);
-
-            robot.Orientation = "S";
-            robot.MoveForward(grid);
-            robot.X.Should().Be(0);
-            robot.Y.Should().Be(0);
+            _marsRover = new Rover();
         }
 
-        [Test]
-        public void TestRotateLeft()
+        [TestCase(4, 8, 2, 3, "E", "LFRFF", ExpectedResult = "(4, 4, E)")]
+        [TestCase(4, 8, 0, 2, "N", "FFLFRFF", ExpectedResult = "(0, 4, W) LOST")]
+        public string TestRobot(int m, int n, int robotX, int robotY, string robotOrientation, string commands)
         {
-            Grid grid = new Grid(5, 5);
-            Robot robot = new Robot(0, 0, "E");
-
-            robot.RotateLeft();
-            robot.Orientation.Should().Be("N");
-
-            robot.RotateLeft();
-            robot.Orientation.Should().Be("W");
-
-            robot.RotateLeft();
-            robot.Orientation.Should().Be("S");
-
-            robot.RotateLeft();
-            robot.Orientation.Should().Be("E");
-        }
-
-        [Test]
-        public void TestRotateRight()
-        {
-            // Initialize the robot
-            Robot robot = new Robot(0, 0, "E");
-
-            // Test rotating right in different directions
-            robot.RotateRight();
-            robot.Orientation.Should().Be("S");
-
-            robot.RotateRight();
-            robot.Orientation.Should().Be("W");
-
-            robot.RotateRight();
-            robot.Orientation.Should().Be("N");
-
-            robot.RotateRight();
-            robot.Orientation.Should().Be("E");
+            Grid grid = new Grid(m, n);
+            Robot robot = new Robot(robotX, robotY, robotOrientation);
+            foreach (char c in commands)
+            {
+                switch (c)
+                {
+                    case 'F':
+                        robot.MoveForward(grid);
+                        break;
+                    case 'L':
+                        robot.RotateLeft();
+                        break;
+                    case 'R':
+                        robot.RotateRight();
+                        break;
+                }
+            }
+            return robot.ToString();
         }
     }
 }
+
+
